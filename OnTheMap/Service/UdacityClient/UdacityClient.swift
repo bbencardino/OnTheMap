@@ -9,12 +9,16 @@ class UdacityClient {
         static let base = "https://onthemap-api.udacity.com/v1"
 
         case session
+        case studentLocation
 
         var stringValue: String {
             switch self {
             case .session:
                 return Endpoint.base + "/session"
+            case .studentLocation:
+                return Endpoint.base + "/StudentLocation"
             }
+
         }
 
         var url: URL {
@@ -26,7 +30,7 @@ class UdacityClient {
 
         let url = Endpoint.session.url
         var request = URLRequest(url: url)
-       
+
         let body = LoginRequest(udacity: ["username": "\(username)", "password": "\(password)"])
         request.httpBody = try! JSONEncoder().encode(body)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -79,6 +83,34 @@ class UdacityClient {
             Auth.sessionId = ""
             DispatchQueue.main.async {
                 completionHandler()
+            }
+        }
+        task.resume()
+    }
+
+    class func getStudentLocation(completionHandler: @escaping ([StudentLocation], Error?) -> ()) {
+
+        let url = Endpoint.studentLocation.url
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completionHandler([], error)
+                    print("oh fuck: \(error)")
+                }
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let response = try decoder.decode(StudentLocationResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completionHandler(response.results, nil)
+
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler([], error)
+                    print("deu merda: \(error)")
+                }
             }
         }
         task.resume()

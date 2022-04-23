@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
         let udacity = [username:password]
 
         UdacityClient.login(username: username, password: password, udacity: udacity) { success, error in
-            success ? self.performSegue(withIdentifier: "completedLogin", sender: nil) : print(error)
+            success ? self.performSegue(withIdentifier: "completedLogin", sender: nil) : print("fudeu")
 
         }
     }

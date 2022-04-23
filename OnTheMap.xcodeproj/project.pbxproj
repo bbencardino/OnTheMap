@@ -19,6 +19,9 @@
 		5EADD1072813148100C9C21A /* SessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EADD1062813148100C9C21A /* SessionResponse.swift */; };
 		5EADD1092814762200C9C21A /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EADD1082814762200C9C21A /* ListViewController.swift */; };
 		5EEF6B5728147B06000D263F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEF6B5628147B06000D263F /* MapViewController.swift */; };
+		5EEF6B5A281483D5000D263F /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEF6B59281483D5000D263F /* StudentLocation.swift */; };
+		5EEF6B5C28148BF6000D263F /* StudentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEF6B5B28148BF6000D263F /* StudentsModel.swift */; };
+		5EEF6B5E28149665000D263F /* StudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEF6B5D28149665000D263F /* StudentLocationResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		5EADD1062813148100C9C21A /* SessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponse.swift; sourceTree = "<group>"; };
 		5EADD1082814762200C9C21A /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		5EEF6B5628147B06000D263F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		5EEF6B59281483D5000D263F /* StudentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
+		5EEF6B5B28148BF6000D263F /* StudentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentsModel.swift; sourceTree = "<group>"; };
+		5EEF6B5D28149665000D263F /* StudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,7 @@
 				5E95EC0B2812C92800A2C1F0 /* SceneDelegate.swift */,
 				5EADD0FD2813052C00C9C21A /* Service */,
 				5E8F2B4E2812F1090046EFC8 /* Controller */,
+				5EEF6B58281483C2000D263F /* Model */,
 				5E8F2B4D2812F0F20046EFC8 /* Delegates */,
 				5E95EC0F2812C92800A2C1F0 /* Main.storyboard */,
 				5E95EC122812C92A00A2C1F0 /* Assets.xcassets */,
@@ -129,8 +136,18 @@
 			isa = PBXGroup;
 			children = (
 				5EADD1062813148100C9C21A /* SessionResponse.swift */,
+				5EEF6B5D28149665000D263F /* StudentLocationResponse.swift */,
 			);
 			path = Responses;
+			sourceTree = "<group>";
+		};
+		5EEF6B58281483C2000D263F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5EEF6B59281483D5000D263F /* StudentLocation.swift */,
+				5EEF6B5B28148BF6000D263F /* StudentsModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,9 +226,12 @@
 				5E95EC0A2812C92800A2C1F0 /* AppDelegate.swift in Sources */,
 				5EADD1072813148100C9C21A /* SessionResponse.swift in Sources */,
 				5EEF6B5728147B06000D263F /* MapViewController.swift in Sources */,
+				5EEF6B5C28148BF6000D263F /* StudentsModel.swift in Sources */,
 				5EADD10328130D4B00C9C21A /* LoginRequest.swift in Sources */,
+				5EEF6B5E28149665000D263F /* StudentLocationResponse.swift in Sources */,
 				5E8F2B512812F1980046EFC8 /* TextFieldDelegate.swift in Sources */,
 				5EADD1092814762200C9C21A /* ListViewController.swift in Sources */,
+				5EEF6B5A281483D5000D263F /* StudentLocation.swift in Sources */,
 				5E95EC0C2812C92800A2C1F0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
