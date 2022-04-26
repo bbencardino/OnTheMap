@@ -16,8 +16,6 @@ class ListViewController: UITableViewController {
             destinationVC.repository = self.repository
         }
     }
-    
-    @IBAction func addStudent(_ sender: UIBarButtonItem) {}
 
     @IBAction func logoutButtonTapped(_ sender: Any) {
 

@@ -33,7 +33,9 @@ class LoginViewController: UIViewController {
         UdacityClient.login(username: username, password: password, udacity: udacity) { success, error in
             if success {
                 UdacityClient.getPublicUserData { user, error in
-
+                    if user != nil {
+                        self.performSegue(withIdentifier: "completedLogin", sender: nil)
+                    }
                 }
             }
         }

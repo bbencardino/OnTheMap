@@ -6,7 +6,7 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -15,8 +15,6 @@ class MapViewController: UIViewController {
             destinationVC.repository = self.repository
         }
     }
-    
-    @IBAction func addStudent(_ sender: UIBarButtonItem) {}
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
 

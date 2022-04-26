@@ -35,7 +35,6 @@ class UdacityClient {
     class func login(username: String, password: String, udacity: [String: String], completionHandler: @escaping (Bool, Error?) -> ()) {
         let url = Endpoint.session.url
         var request = URLRequest(url: url)
-
         let body = LoginRequest(udacity: ["username": "\(username)", "password": "\(password)"])
         request.httpBody = try! JSONEncoder().encode(body)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -106,7 +105,7 @@ class UdacityClient {
     }
 
     class func addStudentLocation(mapString: String, mediaURL: String, completionHandler: @escaping (Bool, Error?) -> ()) -> StudentLocation {
-        
+
         let body = StudentLocation(uniqueKey: Auth.uniqueKey, mediaURL: mediaURL, firstName: Auth.firstName, lastName: Auth.lastName, mapString: mapString, latitude: 0, longitude: 0) // lon and lat hardcoded!!
 
         var request = URLRequest(url: Endpoint.studentLocation.url)
