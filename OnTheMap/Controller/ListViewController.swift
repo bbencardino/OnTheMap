@@ -2,19 +2,22 @@ import UIKit
 
 class ListViewController: UITableViewController {
 
-    private var viewModel = StudentsModel()
+    var repository: StudentsRepository!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.reloadData()
+    }
 
-        UdacityClient.getStudentLocation { students, error in
-
-            self.viewModel.students = students
-            self.tableView.reloadData()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! NewLocationViewController
+        if segue.identifier == "newLocationFromList" {
+            destinationVC.repository = self.repository
         }
     }
+    
+    @IBAction func addStudent(_ sender: UIBarButtonItem) {}
 
     @IBAction func logoutButtonTapped(_ sender: Any) {
 
@@ -27,14 +30,15 @@ class ListViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        viewModel.students.count
+        repository.students.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
 
-        let student = viewModel.students[indexPath.row]
+        let student = repository.students[indexPath.row]
         cell.textLabel?.text = (student.firstName) + " " + (student.lastName)
+        cell.detailTextLabel?.text = student.mapString
 
         return cell
     }

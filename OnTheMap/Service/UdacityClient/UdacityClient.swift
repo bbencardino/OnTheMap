@@ -4,12 +4,16 @@ class UdacityClient {
 
     struct Auth {
         static var sessionId: String = ""
+        static var uniqueKey: String = ""
+        static var firstName: String = ""
+        static var lastName: String = ""
     }
     enum Endpoint {
         static let base = "https://onthemap-api.udacity.com/v1"
 
         case session
         case studentLocation
+        case users
 
         var stringValue: String {
             switch self {
@@ -17,6 +21,8 @@ class UdacityClient {
                 return Endpoint.base + "/session"
             case .studentLocation:
                 return Endpoint.base + "/StudentLocation"
+            case .users:
+                return Endpoint.base + "/users/" + Auth.sessionId
             }
 
         }
@@ -27,7 +33,6 @@ class UdacityClient {
     }
 
     class func login(username: String, password: String, udacity: [String: String], completionHandler: @escaping (Bool, Error?) -> ()) {
-
         let url = Endpoint.session.url
         var request = URLRequest(url: url)
 
@@ -51,6 +56,7 @@ class UdacityClient {
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(SessionResponse.self, from: newData)
                 Auth.sessionId = response.id
+                Auth.uniqueKey = response.key
                 DispatchQueue.main.async {
                     completionHandler(true, nil)
                 }
@@ -90,26 +96,124 @@ class UdacityClient {
 
     class func getStudentLocation(completionHandler: @escaping ([StudentLocation], Error?) -> ()) {
 
-        let url = Endpoint.studentLocation.url
+        taskForGETRequest(udacityAPI: false, url: Endpoint.studentLocation.url, responseType: StudentLocationResponse.self) { response, error in
+            if let response = response {
+                completionHandler(response.results,nil)
+            } else {
+                completionHandler([], error)
+            }
+        }
+    }
+
+    class func addStudentLocation(mapString: String, mediaURL: String, completionHandler: @escaping (Bool, Error?) -> ()) -> StudentLocation {
+        
+        let body = StudentLocation(uniqueKey: Auth.uniqueKey, mediaURL: mediaURL, firstName: Auth.firstName, lastName: Auth.lastName, mapString: mapString, latitude: 0, longitude: 0) // lon and lat hardcoded!!
+
+        var request = URLRequest(url: Endpoint.studentLocation.url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try! JSONEncoder().encode(body)
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                completionHandler(false, error)
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(NewLocationResponse.self, from: data)
+                completionHandler(true, nil)
+                print(response.createdAt)
+            } catch {
+                completionHandler(false, error)
+            }
+
+        }
+        task.resume()
+        return body
+    }
+
+    class func getPublicUserData(completionHandler: @escaping (User?, Error?) -> ()) {
+
+        taskForGETRequest(udacityAPI: true, url: Endpoint.users.url, responseType: User.self) { response, error in
+
+            if let response = response {
+                completionHandler(response, nil)
+                Auth.firstName = response.firstName
+                Auth.lastName = response.lastName
+               
+            } else {
+                completionHandler(nil, error)
+            }
+        }
+    }
+
+    //MARK: - Helper functions
+
+    private class func taskForGETRequest<Response: Decodable>(udacityAPI: Bool,url: URL, responseType: Response.Type, completion: @escaping (Response?, Error?) -> ()) {
+
+
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else {
                 DispatchQueue.main.async {
-                    completionHandler([], error)
-                    print("oh fuck: \(error)")
+                    completion(nil, error)
                 }
                 return
             }
             let decoder = JSONDecoder()
-            do {
-                let response = try decoder.decode(StudentLocationResponse.self, from: data)
-                DispatchQueue.main.async {
-                    completionHandler(response.results, nil)
+            var newData = Data()
 
+            if udacityAPI {
+                let range = 5..<data.count
+                newData = data.subdata(in: range)
+            } else {
+                newData = data
+            }
+            do {
+                let response = try decoder.decode(responseType.self, from: newData)
+                DispatchQueue.main.async {
+                    completion(response, nil)
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completionHandler([], error)
-                    print("deu merda: \(error)")
+                    completion(nil, error)
+                }
+            }
+        }
+        task.resume()
+    }
+
+    private class func taskForPOSTRequest<Response: Decodable, Request: Encodable>(udacityAPI: Bool, url: URL, responseType: Response.Type, body: Request, completion: @escaping (Response?, Error?) -> ()) {
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try! JSONEncoder().encode(body)
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+                return
+            }
+            let decoder = JSONDecoder()
+            var newData = Data()
+
+            if udacityAPI {
+                let range = 5..<data.count
+                newData = data.subdata(in: range)
+            } else {
+                newData = data
+            }
+            do {
+                let response = try decoder.decode(responseType.self, from: newData)
+                DispatchQueue.main.async {
+                    completion(response, nil)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(nil, error)
                 }
             }
         }

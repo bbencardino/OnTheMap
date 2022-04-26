@@ -6,6 +6,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
 
     let textFieldDelegate = TextFieldDelegate()
+    let repository = StudentsRepository()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,19 +18,27 @@ class LoginViewController: UIViewController {
         passwordTextField.text = ""
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TabViewController
+        if segue.identifier == "completedLogin" {
+            destinationVC.repository = self.repository
+        }
+    }
+
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         let username = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         let udacity = [username:password]
 
         UdacityClient.login(username: username, password: password, udacity: udacity) { success, error in
-            success ? self.performSegue(withIdentifier: "completedLogin", sender: nil) : print("fudeu")
+            if success {
+                UdacityClient.getPublicUserData { user, error in
 
+                }
+            }
         }
     }
 
     @IBAction func loginWithFacebook(_ sender: UIButton) {}
-
-
 }
 
