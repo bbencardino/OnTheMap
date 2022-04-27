@@ -7,10 +7,9 @@ class NewLocationViewController: UIViewController {
 
     @IBOutlet weak var locationTextField: UITextField!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        locationTextField.text = ""
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        locationTextField.text = "Type the city or country here"
         locationTextField.delegate = textFieldDelegate
     }
 
@@ -27,11 +26,5 @@ class NewLocationViewController: UIViewController {
         dismiss(animated: true)
     }
 
-
-    @IBAction func findLocation(_ sender: Any) {
-
-    }
-
-
-
+    @IBAction func findLocation(_ sender: Any) {}
 }

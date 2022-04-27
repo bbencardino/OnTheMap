@@ -192,10 +192,10 @@ today?</string>
                                     <action selector="cancelNewLocation:" destination="fYm-QE-Ggv" eventType="touchUpInside" id="F60-T9-bQG"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FMe-qd-oIZ">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FMe-qd-oIZ">
                                 <rect key="frame" x="16" y="405" width="358" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
@@ -330,8 +330,13 @@ today?</string>
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dQL-IN-d25">
+                                <rect key="frame" x="0.0" y="101" width="390" height="20.666666666666671"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bq3-8T-WaL">
-                                <rect key="frame" x="292.66666666666669" y="26" width="68.666666666666686" height="31"/>
+                                <rect key="frame" x="321" y="44" width="68.666666666666686" height="31"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
@@ -339,38 +344,45 @@ today?</string>
                                     <action selector="cancelNewLocation:" destination="xtZ-Nr-yIE" eventType="touchUpInside" id="9TE-l4-abl"/>
                                 </connections>
                             </button>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Kj4-Bz-fQh">
-                                <rect key="frame" x="0.0" y="286" width="390" height="504"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Kj4-Bz-fQh">
+                                <rect key="frame" x="0.0" y="272.66666666666669" width="390" height="571.33333333333326"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yrK-2v-H8F">
-                                <rect key="frame" x="59" y="632" width="273" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yrK-2v-H8F">
+                                <rect key="frame" x="160.33333333333334" y="779" width="69.666666666666657" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Submit"/>
                                 <connections>
                                     <action selector="submitNewLocation:" destination="xtZ-Nr-yIE" eventType="touchUpInside" id="Vag-gV-sVy"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dQL-IN-d25">
-                                <rect key="frame" x="29" y="101" width="332" height="34"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Uzu-b6-udO">
+                                <rect key="frame" x="185" y="200" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sET-3b-LE0"/>
                         <color key="backgroundColor" systemColor="systemMintColor"/>
                         <constraints>
-                            <constraint firstItem="sET-3b-LE0" firstAttribute="top" secondItem="Bq3-8T-WaL" secondAttribute="top" constant="18" id="AaU-0q-YHJ"/>
-                            <constraint firstItem="sET-3b-LE0" firstAttribute="trailing" secondItem="Bq3-8T-WaL" secondAttribute="trailing" constant="28.666666666666686" id="T2D-cS-kFU"/>
+                            <constraint firstItem="yrK-2v-H8F" firstAttribute="bottom" secondItem="Kj4-Bz-fQh" secondAttribute="bottom" constant="-34" id="7Qn-Pd-q7m"/>
+                            <constraint firstItem="sET-3b-LE0" firstAttribute="top" secondItem="Bq3-8T-WaL" secondAttribute="top" id="AaU-0q-YHJ"/>
+                            <constraint firstItem="Kj4-Bz-fQh" firstAttribute="top" secondItem="dQL-IN-d25" secondAttribute="bottom" constant="151" id="Bqy-eI-h6a"/>
+                            <constraint firstItem="dQL-IN-d25" firstAttribute="top" secondItem="Bq3-8T-WaL" secondAttribute="bottom" constant="26" id="Gn8-x5-TD7"/>
+                            <constraint firstItem="sET-3b-LE0" firstAttribute="trailing" secondItem="Bq3-8T-WaL" secondAttribute="trailing" constant="0.33333333333331439" id="T2D-cS-kFU"/>
+                            <constraint firstItem="Kj4-Bz-fQh" firstAttribute="leading" secondItem="sET-3b-LE0" secondAttribute="leading" id="XGb-sp-Mi9"/>
+                            <constraint firstItem="dQL-IN-d25" firstAttribute="leading" secondItem="sET-3b-LE0" secondAttribute="leading" id="cly-fs-LIF"/>
+                            <constraint firstItem="sET-3b-LE0" firstAttribute="trailing" secondItem="Kj4-Bz-fQh" secondAttribute="trailing" id="hlR-ij-RPk"/>
+                            <constraint firstItem="yrK-2v-H8F" firstAttribute="centerX" secondItem="sET-3b-LE0" secondAttribute="centerX" id="iSc-sV-IQz"/>
+                            <constraint firstItem="Kj4-Bz-fQh" firstAttribute="bottom" secondItem="sET-3b-LE0" secondAttribute="bottom" constant="34" id="r9k-RV-q8I"/>
                             <constraint firstItem="Bq3-8T-WaL" firstAttribute="leading" relation="lessThanOrEqual" secondItem="sET-3b-LE0" secondAttribute="leading" constant="322" id="yfO-tb-ZFy"/>
+                            <constraint firstItem="sET-3b-LE0" firstAttribute="trailing" secondItem="dQL-IN-d25" secondAttribute="trailing" id="ykZ-50-Wi8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="YOT-xX-2TA"/>
                     <connections>
                         <outlet property="mapView" destination="Kj4-Bz-fQh" id="U7B-SV-Dg2"/>
                         <outlet property="mediaTextField" destination="dQL-IN-d25" id="Sho-gf-1SC"/>
+                        <outlet property="spin" destination="Uzu-b6-udO" id="C4M-hm-KTa"/>
+                        <segue destination="pPm-1Z-is5" kind="presentation" identifier="SubmittedPin" animates="NO" modalPresentationStyle="fullScreen" id="1nb-aL-QIc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NIf-jO-0qR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -379,6 +391,7 @@ today?</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="1nb-aL-QIc"/>
         <segue reference="esc-lq-aN1"/>
     </inferredMetricsTieBreakers>
     <resources>

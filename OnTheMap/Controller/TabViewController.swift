@@ -1,21 +1,14 @@
-//
-//  TabViewController.swift
-//  OnTheMap
-//
-//  Created by Isabella Bencardino on 26/04/2022.
-//
-
 import UIKit
 
 class TabViewController: UITabBarController {
 
-    var repository: StudentsRepository!
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    var repository: StudentsRepository?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         UdacityClient.getStudentLocation { students, error in
-            self.repository.students = students
+            self.repository?.students = students
             self.setUpChildViewController()
         }
     }

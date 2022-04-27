@@ -4,7 +4,6 @@ import MapKit
 class MapViewController: UIViewController {
 
     var repository: StudentsRepository!
-    private let mapViewDelegate = MapViewDelegate()
 
     @IBOutlet weak var mapView: MKMapView!
 
@@ -31,6 +30,7 @@ class MapViewController: UIViewController {
     var annotations = [MKPointAnnotation]()
 
     private func configureMapView() {
+        mapView.delegate = self
 
         for student in repository.students {
             let latitude = CLLocationDegrees(student.latitude)
@@ -48,7 +48,39 @@ class MapViewController: UIViewController {
 
             annotations.append(annotation)
             mapView.addAnnotations(annotations)
-            mapView.delegate = mapViewDelegate
+
+
+            print("adicionado ao mapa com sucesso")
+        }
+    }
+}
+
+extension MapViewController: MKMapViewDelegate {
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            pinView?.tintColor = .systemMint
+            pinView?.canShowCallout = true
+            pinView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        } else {
+            pinView?.annotation = annotation
+        }
+        return pinView
+    }
+
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+
+        let subtitle = view.annotation?.subtitle! ?? ""
+
+        guard let url = URL(string: subtitle) else { return }
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+
+        } else {
+            //TODO: Handle error if there is an invalid url
         }
     }
 }

@@ -34,8 +34,9 @@ class UdacityClient {
     class func login(username: String, password: String, udacity: [String: String], completionHandler: @escaping (Bool, Error?) -> ()) {
         let url = Endpoint.session.url
         var request = URLRequest(url: url)
+
+
         let body = LoginRequest(udacity: ["username": "\(username)", "password": "\(password)"])
-        
         request.httpBody = try! JSONEncoder().encode(body)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
