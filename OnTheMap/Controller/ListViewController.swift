@@ -40,6 +40,4 @@ class ListViewController: UITableViewController {
 
         return cell
     }
-
-
 }

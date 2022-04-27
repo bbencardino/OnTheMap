@@ -7,4 +7,3 @@ struct StudentLocation: Codable {
     var mapString: String
     let latitude, longitude: Double
 }
-

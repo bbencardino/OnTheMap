@@ -10,6 +10,7 @@
 		5E46CDBA2816D30C0003CCF6 /* NewLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E46CDB92816D30C0003CCF6 /* NewLocationResponse.swift */; };
 		5E46CDBC2816F94E0003CCF6 /* NewLocationSubmittedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E46CDBB2816F94E0003CCF6 /* NewLocationSubmittedViewController.swift */; };
 		5E719C7C2817F7E40038F1E5 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E719C7B2817F7E30038F1E5 /* TabViewController.swift */; };
+		5E719C7E28193EE30038F1E5 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E719C7D28193EE30038F1E5 /* MapViewDelegate.swift */; };
 		5E8F2B512812F1980046EFC8 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8F2B502812F1980046EFC8 /* TextFieldDelegate.swift */; };
 		5E95EC0A2812C92800A2C1F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E95EC092812C92800A2C1F0 /* AppDelegate.swift */; };
 		5E95EC0C2812C92800A2C1F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E95EC0B2812C92800A2C1F0 /* SceneDelegate.swift */; };
@@ -33,6 +34,7 @@
 		5E46CDB92816D30C0003CCF6 /* NewLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocationResponse.swift; sourceTree = "<group>"; };
 		5E46CDBB2816F94E0003CCF6 /* NewLocationSubmittedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocationSubmittedViewController.swift; sourceTree = "<group>"; };
 		5E719C7B2817F7E30038F1E5 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		5E719C7D28193EE30038F1E5 /* MapViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		5E8F2B502812F1980046EFC8 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
 		5E95EC062812C92800A2C1F0 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E95EC092812C92800A2C1F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				5E8F2B502812F1980046EFC8 /* TextFieldDelegate.swift */,
+				5E719C7D28193EE30038F1E5 /* MapViewDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E719C7E28193EE30038F1E5 /* MapViewDelegate.swift in Sources */,
 				5EADD1002813058C00C9C21A /* UdacityClient.swift in Sources */,
 				5E95EC0E2812C92800A2C1F0 /* LoginViewController.swift in Sources */,
 				5E95EC0A2812C92800A2C1F0 /* AppDelegate.swift in Sources */,

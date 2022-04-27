@@ -20,11 +20,10 @@ class UdacityClient {
             case .session:
                 return Endpoint.base + "/session"
             case .studentLocation:
-                return Endpoint.base + "/StudentLocation"
+                return Endpoint.base + "/StudentLocation" + "?order=-updatedAt"
             case .users:
                 return Endpoint.base + "/users/" + Auth.sessionId
             }
-
         }
 
         var url: URL {
@@ -36,6 +35,7 @@ class UdacityClient {
         let url = Endpoint.session.url
         var request = URLRequest(url: url)
         let body = LoginRequest(udacity: ["username": "\(username)", "password": "\(password)"])
+        
         request.httpBody = try! JSONEncoder().encode(body)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -104,9 +104,9 @@ class UdacityClient {
         }
     }
 
-    class func addStudentLocation(mapString: String, mediaURL: String, completionHandler: @escaping (Bool, Error?) -> ()) -> StudentLocation {
-
-        let body = StudentLocation(uniqueKey: Auth.uniqueKey, mediaURL: mediaURL, firstName: Auth.firstName, lastName: Auth.lastName, mapString: mapString, latitude: 0, longitude: 0) // lon and lat hardcoded!!
+    class func addStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandler: @escaping (Bool, Error?)-> ()) -> StudentLocation {
+        
+        let body = StudentLocation(uniqueKey: Auth.uniqueKey, mediaURL: mediaURL, firstName: Auth.firstName, lastName: Auth.lastName, mapString: mapString, latitude: latitude, longitude: longitude)
 
         var request = URLRequest(url: Endpoint.studentLocation.url)
         request.httpMethod = "POST"

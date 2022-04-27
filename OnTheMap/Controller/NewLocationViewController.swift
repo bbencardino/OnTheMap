@@ -18,7 +18,7 @@ class NewLocationViewController: UIViewController {
         let location = locationTextField.text ?? ""
         let destinationVC = segue.destination as! NewLocationSubmittedViewController
         if segue.identifier == "findLocation" {
-            destinationVC.location = location
+            destinationVC.mapString = location
             destinationVC.repository = self.repository
         }
     }
@@ -31,4 +31,7 @@ class NewLocationViewController: UIViewController {
     @IBAction func findLocation(_ sender: Any) {
 
     }
+
+
+
 }

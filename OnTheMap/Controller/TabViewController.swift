@@ -11,8 +11,8 @@ class TabViewController: UITabBarController {
 
     var repository: StudentsRepository!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         UdacityClient.getStudentLocation { students, error in
             self.repository.students = students
