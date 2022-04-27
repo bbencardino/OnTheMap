@@ -49,7 +49,6 @@ class MapViewController: UIViewController {
             annotations.append(annotation)
             mapView.addAnnotations(annotations)
 
-
             print("adicionado ao mapa com sucesso")
         }
     }

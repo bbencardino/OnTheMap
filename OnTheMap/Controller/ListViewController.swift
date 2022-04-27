@@ -25,7 +25,6 @@ class ListViewController: UITableViewController {
     }
     // MARK: - Table view data source
 
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         repository.students.count
@@ -36,8 +35,20 @@ class ListViewController: UITableViewController {
 
         let student = repository.students[indexPath.row]
         cell.textLabel?.text = (student.firstName) + " " + (student.lastName)
-        cell.detailTextLabel?.text = student.mapString
+        cell.detailTextLabel?.text = student.mediaURL
 
         return cell
+    }
+    //MARK: - Table View Delegate
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let student = repository.students[indexPath.row]
+        guard let url = URL(string: student.mediaURL) else { return }
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        } else {
+            //TODO: Handle error when the url is not valid 
+        }
     }
 }
