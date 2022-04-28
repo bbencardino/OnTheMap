@@ -10,6 +10,7 @@ class MapViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         configureMapView()
+
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -32,6 +33,7 @@ class MapViewController: UIViewController {
     private func configureMapView() {
         mapView.delegate = self
 
+
         for student in repository.students {
             let latitude = CLLocationDegrees(student.latitude)
             let longitude = CLLocationDegrees(student.longitude)
@@ -48,8 +50,7 @@ class MapViewController: UIViewController {
 
             annotations.append(annotation)
             mapView.addAnnotations(annotations)
-
-            print("adicionado ao mapa com sucesso")
+            mapView.setCenter(coordinate, animated: true)
         }
     }
 }

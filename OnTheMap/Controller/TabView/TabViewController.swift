@@ -2,13 +2,13 @@ import UIKit
 
 class TabViewController: UITabBarController {
 
-    var repository: StudentsRepository?
+    var repository: StudentsRepository!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         UdacityClient.getStudentLocation { students, error in
-            self.repository?.students = students
+            self.repository.students = students
             self.setUpChildViewController()
         }
     }

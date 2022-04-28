@@ -27,16 +27,6 @@ class NewLocationSubmittedViewController: UIViewController {
     }
 
     @IBAction func submitNewLocation(_ sender: Any) {
-
-        addStudents()
-
-    }
-    
-    @IBAction func cancelNewLocation(_ sender: Any) {
-        dismiss(animated: true)
-    }
-
-    private func addStudents() {
         let media = mediaTextField.text ?? ""
         let latitude = Double(coordinate.latitude)
         let longitude = Double(coordinate.longitude)
@@ -45,12 +35,13 @@ class NewLocationSubmittedViewController: UIViewController {
         })
 
         repository.students.append(student)
+
+        //dismiss to the root
+        presentingViewController?.presentingViewController?.dismiss(animated: false)
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! TabViewController
-        if segue.identifier == "SubmittedPin" {
-            destinationVC.repository = self.repository
-        }
+    
+    @IBAction func cancelNewLocation(_ sender: Any) {
+        dismiss(animated: true)
     }
 
 // MARK: - Map View

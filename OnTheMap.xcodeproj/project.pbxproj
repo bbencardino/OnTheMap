@@ -77,11 +77,8 @@
 			isa = PBXGroup;
 			children = (
 				5E95EC0D2812C92800A2C1F0 /* LoginViewController.swift */,
-				5E719C7B2817F7E30038F1E5 /* TabViewController.swift */,
-				5EEF6B5628147B06000D263F /* MapViewController.swift */,
-				5EADD1082814762200C9C21A /* ListViewController.swift */,
-				5EB1E3362816A8B3004BDDD7 /* NewLocationViewController.swift */,
-				5E46CDBB2816F94E0003CCF6 /* NewLocationSubmittedViewController.swift */,
+				5EF493F3281AB6D3006657D1 /* TabView */,
+				5EF493F2281AB6A7006657D1 /* New Student Location */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -109,6 +106,7 @@
 				5E95EC0B2812C92800A2C1F0 /* SceneDelegate.swift */,
 				5EADD0FD2813052C00C9C21A /* Service */,
 				5E8F2B4E2812F1090046EFC8 /* Controller */,
+				5EF493F1281AB688006657D1 /* Repository */,
 				5EEF6B58281483C2000D263F /* Model */,
 				5E8F2B4D2812F0F20046EFC8 /* Delegates */,
 				5E95EC0F2812C92800A2C1F0 /* Main.storyboard */,
@@ -160,9 +158,35 @@
 			children = (
 				5EEF6B6328169115000D263F /* User.swift */,
 				5EEF6B59281483D5000D263F /* StudentLocation.swift */,
-				5EEF6B5B28148BF6000D263F /* StudentsRepository.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		5EF493F1281AB688006657D1 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				5EEF6B5B28148BF6000D263F /* StudentsRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		5EF493F2281AB6A7006657D1 /* New Student Location */ = {
+			isa = PBXGroup;
+			children = (
+				5EB1E3362816A8B3004BDDD7 /* NewLocationViewController.swift */,
+				5E46CDBB2816F94E0003CCF6 /* NewLocationSubmittedViewController.swift */,
+			);
+			path = "New Student Location";
+			sourceTree = "<group>";
+		};
+		5EF493F3281AB6D3006657D1 /* TabView */ = {
+			isa = PBXGroup;
+			children = (
+				5E719C7B2817F7E30038F1E5 /* TabViewController.swift */,
+				5EEF6B5628147B06000D263F /* MapViewController.swift */,
+				5EADD1082814762200C9C21A /* ListViewController.swift */,
+			);
+			path = TabView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
