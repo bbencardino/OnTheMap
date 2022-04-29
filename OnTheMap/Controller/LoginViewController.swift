@@ -46,7 +46,9 @@ class LoginViewController: UIViewController {
         }
     }
 
-    @IBAction func loginWithFacebook(_ sender: UIButton) {}
+    @IBAction func signUp(_ sender: Any) {
+        UIApplication.shared.open(UdacityClient.Endpoint.signUp.url)
+    }
 
     private func startLogin(_ login: Bool) {
         login ? spin.startAnimating() : spin.stopAnimating()

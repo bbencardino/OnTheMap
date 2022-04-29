@@ -14,6 +14,7 @@ final class UdacityClient {
         case session
         case studentLocation
         case users
+        case signUp
 
         var stringValue: String {
             switch self {
@@ -23,6 +24,8 @@ final class UdacityClient {
                 return Endpoint.base + "/StudentLocation" + "?order=-updatedAt"
             case .users:
                 return Endpoint.base + "/users/" + Auth.sessionId
+            case .signUp:
+                return "https://auth.udacity.com/sign-up"
             }
         }
 
