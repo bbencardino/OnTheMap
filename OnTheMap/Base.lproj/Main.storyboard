@@ -106,16 +106,23 @@
                                 <color key="barTintColor" red="0.76470035309999995" green="0.97647374870000003" blue="0.98823398350000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem title="Map" id="euq-3S-0sq">
-                                        <barButtonItem key="leftBarButtonItem" image="mappin" catalog="system" id="eDh-Q4-YO9">
-                                            <connections>
-                                                <action selector="addStudent:" destination="JIi-hi-0VT" id="5cG-gZ-qOi"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Logout" id="NtX-Np-8f2">
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="NtX-Np-8f2">
                                             <connections>
                                                 <action selector="logoutButtonTapped:" destination="JIi-hi-0VT" id="1Aq-7m-lD6"/>
                                             </connections>
                                         </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem image="mappin" catalog="system" id="eDh-Q4-YO9">
+                                                <connections>
+                                                    <action selector="addStudent:" destination="JIi-hi-0VT" id="5cG-gZ-qOi"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem image="arrow.clockwise" catalog="system" id="bJT-fh-6SF">
+                                                <connections>
+                                                    <action selector="refresh:" destination="JIi-hi-0VT" id="FpP-jc-ZnE"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -142,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="56l-u6-qKk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1922" y="423"/>
+            <point key="canvasLocation" x="1906" y="409"/>
         </scene>
         <!--New Location View Controller-->
         <scene sceneID="ftw-ST-Yne">
@@ -202,7 +209,7 @@ today?</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QZ6-qC-xUg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2749.2307692307691" y="-663.27014218009481"/>
+            <point key="canvasLocation" x="3100" y="-664"/>
         </scene>
         <!--List-->
         <scene sceneID="kfg-cu-Tm8">
@@ -219,16 +226,23 @@ today?</string>
                             <color key="barTintColor" red="0.76470035309999995" green="0.97647374870000003" blue="0.98823398350000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <items>
                                 <navigationItem title="List" id="3kb-7z-cPT">
-                                    <barButtonItem key="leftBarButtonItem" image="mappin" catalog="system" id="1ho-Wi-Lrn">
-                                        <connections>
-                                            <action selector="addStudent:" destination="Sax-m2-XCP" id="Hl9-Ib-DKJ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem key="rightBarButtonItem" title="Logout" id="gSW-Bo-fjZ">
+                                    <barButtonItem key="leftBarButtonItem" title="Logout" id="gSW-Bo-fjZ">
                                         <connections>
                                             <action selector="logoutButtonTapped:" destination="JIi-hi-0VT" id="p1e-gc-coL"/>
                                         </connections>
                                     </barButtonItem>
+                                    <rightBarButtonItems>
+                                        <barButtonItem image="mappin" catalog="system" id="1ho-Wi-Lrn">
+                                            <connections>
+                                                <action selector="addStudent:" destination="Sax-m2-XCP" id="Hl9-Ib-DKJ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem image="arrow.clockwise" catalog="system" id="FPm-eq-oCA">
+                                            <connections>
+                                                <action selector="refresh:" destination="Sax-m2-XCP" id="XCV-yy-iDi"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </rightBarButtonItems>
                                 </navigationItem>
                             </items>
                         </navigationBar>
@@ -272,7 +286,7 @@ today?</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VN9-l7-HIU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2363" y="-537"/>
+            <point key="canvasLocation" x="2290" y="-569"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="uML-Mm-Wzw">
@@ -363,6 +377,7 @@ today?</string>
         <segue reference="Aib-sE-tCd"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <image name="list.star" catalog="system" width="128" height="94"/>
         <image name="mappin" catalog="system" width="105" height="128"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>

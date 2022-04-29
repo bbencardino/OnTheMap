@@ -42,6 +42,11 @@ final class MapViewController: UIViewController {
             Alert.dismissAlert(title: "Bad internet connection", message: "It's not possible to add a new student. Please connect to a better internet", vc: self)
         }
     }
+
+    @IBAction func refresh(_ sender: Any) {
+        repository?.getStudents(completion: { _ in })
+        configureMapView()
+    }
     //MARK: - Map View
 
     var annotations = [MKPointAnnotation]()
