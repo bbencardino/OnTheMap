@@ -4,10 +4,10 @@ class StudentsRepository {
     
     var students: [StudentLocation] = []
 
-    func getStudents(completion: @escaping () -> ()) {
+    func getStudents(completion: @escaping (Error?) -> ()) {
         UdacityClient.getStudentLocation { students, error in
             self.students = students
-            completion()
+            completion(error)
         }
     }
 }

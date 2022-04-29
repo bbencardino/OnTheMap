@@ -4,6 +4,7 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var spin: UIActivityIndicatorView!
 
     let textFieldDelegate = TextFieldDelegate()
     let repository = StudentsRepository()
@@ -26,21 +27,28 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
+        startLogin(true)
         let username = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         let udacity = [username:password]
 
         UdacityClient.login(username: username, password: password, udacity: udacity) { success, error in
+
             if success {
-                UdacityClient.getPublicUserData { user, error in
-                    if user != nil {
-                        self.performSegue(withIdentifier: "completedLogin", sender: nil)
-                    }
+                self.startLogin(false)
+                self.performSegue(withIdentifier: "completedLogin", sender: nil)
+            } else {
+                DispatchQueue.main.async {
+                    Alert.basicAlert(title: "Login Failed", message: error?.localizedDescription ?? "", vc: self)
+                    self.startLogin(false)
                 }
             }
         }
     }
 
     @IBAction func loginWithFacebook(_ sender: UIButton) {}
-}
 
+    private func startLogin(_ login: Bool) {
+        login ? spin.startAnimating() : spin.stopAnimating()
+    }
+}

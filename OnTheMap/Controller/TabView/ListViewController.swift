@@ -4,9 +4,9 @@ class ListViewController: UITableViewController {
 
     var repository: StudentsRepository!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
         tableView.reloadData()
     }
 
@@ -18,9 +18,22 @@ class ListViewController: UITableViewController {
     }
 
     @IBAction func logoutButtonTapped(_ sender: Any) {
-
         UdacityClient.logout {
             self.dismiss(animated: true)
+        }
+    }
+    
+    @IBAction func addStudent(_ sender: UIBarButtonItem) {
+
+        repository.students.forEach { student in
+
+            if student.uniqueKey == UdacityClient.Auth.uniqueKey {
+                Alert.overwriteAlert(title: "", message: "You have already posted a student location. Would you like to overwrite your current location?", vc: self) { _ in
+                  self.performSegue(withIdentifier: "newLocationFromList", sender: nil)
+                }
+            } else {
+                self.performSegue(withIdentifier: "newLocationFromList", sender: nil)
+            }
         }
     }
     // MARK: - Table view data source
@@ -44,11 +57,15 @@ class ListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let student = repository.students[indexPath.row]
-        guard let url = URL(string: student.mediaURL) else { return }
+        guard let url = URL(string: student.mediaURL) else {
+            Alert.basicAlert(title: "Empty URL", message: "This student shared an empty URL", vc: self)
+            return
+        }
+        
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         } else {
-            //TODO: Handle error when the url is not valid 
+            Alert.basicAlert(title: "Invalid URL", message: "This student shared an invalid URL", vc: self)
         }
     }
 }

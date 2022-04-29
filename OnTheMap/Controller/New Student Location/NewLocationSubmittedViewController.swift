@@ -27,24 +27,33 @@ class NewLocationSubmittedViewController: UIViewController {
     }
 
     @IBAction func submitNewLocation(_ sender: Any) {
-        let media = mediaTextField.text ?? ""
+        var media = mediaTextField.text ?? ""
+        if media == "Enter a Link to share here" {
+            media = ""
+        }
         let latitude = Double(coordinate.latitude)
         let longitude = Double(coordinate.longitude)
 
-        let student = UdacityClient.addStudentLocation(mapString: mapString, mediaURL: media, latitude: latitude, longitude: longitude, completionHandler: { success, error in
+        UdacityClient.addStudentLocation(mapString: mapString, mediaURL: media, latitude: latitude, longitude: longitude, completionHandler: { success, error in
+
+            if success {
+                self.repository.getStudents { _ in }
+                Alert.actionAlert(title: "Success", message: "A student was added successfully", vc: self) { _ in
+
+                    //dismiss to the root
+                    self.presentingViewController?.presentingViewController?.dismiss(animated: false)
+                }
+            } else {
+                Alert.basicAlert(title: "Weird", message: error?.localizedDescription ?? "", vc: self)
+            }
         })
-
-        repository.students.append(student)
-
-        //dismiss to the root
-        presentingViewController?.presentingViewController?.dismiss(animated: false)
     }
     
     @IBAction func cancelNewLocation(_ sender: Any) {
         dismiss(animated: true)
     }
 
-// MARK: - Map View
+    // MARK: - Map View
 
     private func convertMapString() {
         spin.startAnimating()
@@ -55,10 +64,8 @@ class NewLocationSubmittedViewController: UIViewController {
 
     private func handleAddressStringResponse(placemarks: [CLPlacemark]?, error: Error?) {
 
-        if let error = error {
-            print(error)
-           //TODO: Handle error when the location is incorrect
-
+        if error != nil {
+            Alert.dismissAlert(title: "Invalid city or country", message: "Please enter a valid city or country", vc: self)
         } else {
             spin.stopAnimating()
             var location: CLLocation?
@@ -69,15 +76,11 @@ class NewLocationSubmittedViewController: UIViewController {
             if let location = location {
                 let coordinate = location.coordinate
                 self.coordinate = coordinate
-                
-                print(coordinate)
                 mapView.region.center = coordinate
 
             } else {
-                //TODO: Handle error when location is not found
+                Alert.basicAlert(title: "Location Not Found", message: "Please enter correct location", vc: self)
             }
         }
     }
 }
-
-

@@ -25,6 +25,4 @@ class NewLocationViewController: UIViewController {
     @IBAction func cancelNewLocation(_ sender: Any) {
         dismiss(animated: true)
     }
-
-    @IBAction func findLocation(_ sender: Any) {}
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-class UdacityClient {
+final class UdacityClient {
 
     struct Auth {
         static var sessionId: String = ""
@@ -32,42 +32,19 @@ class UdacityClient {
     }
 
     class func login(username: String, password: String, udacity: [String: String], completionHandler: @escaping (Bool, Error?) -> ()) {
-        let url = Endpoint.session.url
-        var request = URLRequest(url: url)
-
 
         let body = LoginRequest(udacity: ["username": "\(username)", "password": "\(password)"])
-        request.httpBody = try! JSONEncoder().encode(body)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                DispatchQueue.main.async {
-                    completionHandler(false,error)
-                }
-                return
-            }
-
-            let range = 5..<data.count
-            let newData = data.subdata(in: range)
-
-            do {
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(SessionResponse.self, from: newData)
+        
+        taskForPOSTRequest(udacityAPI: true, url: Endpoint.session.url, responseType: SessionResponse.self, body: body) { response, error in
+            if let response = response {
                 Auth.sessionId = response.id
                 Auth.uniqueKey = response.key
-                DispatchQueue.main.async {
-                    completionHandler(true, nil)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completionHandler(false, error)
-                    print(error)
-                }
+                completionHandler(true, nil)
+                getPublicUserData()
+            } else {
+               completionHandler(false, error)
             }
         }
-        task.resume()
     }
 
     class func logout(completionHandler: @escaping () -> ()) {
@@ -105,45 +82,24 @@ class UdacityClient {
         }
     }
 
-    class func addStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandler: @escaping (Bool, Error?)-> ()) -> StudentLocation {
+    class func addStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandler: @escaping (Bool, Error?)-> ()) {
         
         let body = StudentLocation(uniqueKey: Auth.uniqueKey, mediaURL: mediaURL, firstName: Auth.firstName, lastName: Auth.lastName, mapString: mapString, latitude: latitude, longitude: longitude)
 
-        var request = URLRequest(url: Endpoint.studentLocation.url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try! JSONEncoder().encode(body)
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                completionHandler(false, error)
-                return
-            }
-            do {
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(NewLocationResponse.self, from: data)
+        taskForPOSTRequest(udacityAPI: false, url: Endpoint.studentLocation.url, responseType: NewLocationResponse.self, body: body) { response, error in
+            if response != nil {
                 completionHandler(true, nil)
-                print(response.createdAt)
-            } catch {
+            } else {
                 completionHandler(false, error)
             }
-
         }
-        task.resume()
-        return body
     }
 
-    class func getPublicUserData(completionHandler: @escaping (User?, Error?) -> ()) {
-
+    class func getPublicUserData() {
         taskForGETRequest(udacityAPI: true, url: Endpoint.users.url, responseType: User.self) { response, error in
-
             if let response = response {
-                completionHandler(response, nil)
                 Auth.firstName = response.firstName
                 Auth.lastName = response.lastName
-               
-            } else {
-                completionHandler(nil, error)
             }
         }
     }
@@ -175,8 +131,15 @@ class UdacityClient {
                     completion(response, nil)
                 }
             } catch {
-                DispatchQueue.main.async {
-                    completion(nil, error)
+                do {
+                    let errorResponse = try decoder.decode(ErrorResponse.self, from: newData) as Error
+                    DispatchQueue.main.async {
+                        completion(nil, errorResponse)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
                 }
             }
         }
@@ -190,7 +153,7 @@ class UdacityClient {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONEncoder().encode(body)
 
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 DispatchQueue.main.async {
                     completion(nil, error)
@@ -212,8 +175,15 @@ class UdacityClient {
                     completion(response, nil)
                 }
             } catch {
-                DispatchQueue.main.async {
-                    completion(nil, error)
+                do {
+                    let errorResponse = try decoder.decode(ErrorResponse.self, from: newData)
+                    DispatchQueue.main.async {
+                        completion(nil, errorResponse)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
                 }
             }
         }

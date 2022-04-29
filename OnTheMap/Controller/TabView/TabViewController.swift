@@ -1,15 +1,18 @@
 import UIKit
 
-class TabViewController: UITabBarController {
+final class TabViewController: UITabBarController {
 
     var repository: StudentsRepository!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UdacityClient.getStudentLocation { students, error in
-            self.repository.students = students
-            self.setUpChildViewController()
+        repository.getStudents { error  in
+            if let error = error {
+                Alert.basicAlert(title: "Download Failed", message: error.localizedDescription, vc: self)
+            } else {
+                self.setUpChildViewController()
+            }
         }
     }
 
