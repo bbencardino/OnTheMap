@@ -21,7 +21,7 @@ final class UdacityClient {
             case .session:
                 return Endpoint.base + "/session"
             case .studentLocation:
-                return Endpoint.base + "/StudentLocation" + "?order=-updatedAt"
+                return Endpoint.base + "/StudentLocation" + "?limit=100&order=-updatedAt"
             case .users:
                 return Endpoint.base + "/users/" + Auth.sessionId
             case .signUp:

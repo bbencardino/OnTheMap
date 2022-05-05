@@ -9,6 +9,7 @@ final class MapViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        removeAllPins()
         configureMapView()
     }
 
@@ -42,19 +43,21 @@ final class MapViewController: UIViewController {
             Alert.dismissAlert(title: "Bad internet connection", message: "It's not possible to add a new student. Please connect to a better internet", vc: self)
         }
     }
+    //MARK: - Map View
+    private var annotationss = [MKAnnotation]()
+    //TODO: Change name to annotations
 
     @IBAction func refresh(_ sender: Any) {
+        removeAllPins()
         repository?.getStudents(completion: { _ in })
         configureMapView()
     }
-    //MARK: - Map View
-
-    var annotations = [MKPointAnnotation]()
 
     private func configureMapView() {
         mapView.delegate = self
 
         if let repository = repository {
+
             let lastStudent = repository.students[0]
             let coordinate = CLLocationCoordinate2D(latitude: lastStudent.latitude, longitude: lastStudent.longitude)
             mapView.setCenter(coordinate, animated: true)
@@ -73,13 +76,17 @@ final class MapViewController: UIViewController {
                 annotation.title = "\(firstName) \(lastName)"
                 annotation.subtitle = media
 
-                annotations.append(annotation)
-                mapView.addAnnotations(annotations)
+                annotationss.append(annotation)
 
+                mapView.addAnnotations(annotationss)
             }
         } else {
             Alert.basicAlert(title: "Download Failed", message: "It's not possible to download students. Please connect to a better internet", vc: self)
         }
+    }
+
+    private func removeAllPins() {
+        mapView.removeAnnotations(mapView.annotations)
     }
 }
 
@@ -89,7 +96,7 @@ extension MapViewController: MKMapViewDelegate {
 
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
         if pinView == nil {
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            pinView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "pin")
             pinView?.tintColor = .systemMint
             pinView?.canShowCallout = true
             pinView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)

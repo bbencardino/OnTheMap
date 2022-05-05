@@ -66,6 +66,7 @@ class NewLocationSubmittedViewController: UIViewController {
 
         if error != nil {
             Alert.dismissAlert(title: "Invalid city or country", message: "Please enter a valid city or country", vc: self)
+            spin.stopAnimating()
         } else {
             spin.stopAnimating()
             var location: CLLocation?
@@ -77,6 +78,12 @@ class NewLocationSubmittedViewController: UIViewController {
                 let coordinate = location.coordinate
                 self.coordinate = coordinate
                 mapView.region.center = coordinate
+
+                let pin = MKPointAnnotation()
+                pin.coordinate = coordinate
+
+                mapView.addAnnotation(pin)
+
 
             } else {
                 Alert.basicAlert(title: "Location Not Found", message: "Please enter correct location", vc: self)
