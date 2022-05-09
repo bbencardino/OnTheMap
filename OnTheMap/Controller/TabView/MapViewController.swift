@@ -9,8 +9,9 @@ final class MapViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        removeAllPins()
-        configureMapView()
+
+        annotations.isEmpty ? configureMapView() : removeAllPins()
+        addAllPins()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,18 +45,17 @@ final class MapViewController: UIViewController {
         }
     }
     //MARK: - Map View
-    private var annotationss = [MKAnnotation]()
-    //TODO: Change name to annotations
+
+    private var annotations = [MKAnnotation]()
 
     @IBAction func refresh(_ sender: Any) {
-        removeAllPins()
         repository?.getStudents(completion: { _ in })
-        configureMapView()
+        annotations.isEmpty ? configureMapView() : removeAllPins()
+        addAllPins()
     }
 
     private func configureMapView() {
         mapView.delegate = self
-
         if let repository = repository {
 
             let lastStudent = repository.students[0]
@@ -76,17 +76,19 @@ final class MapViewController: UIViewController {
                 annotation.title = "\(firstName) \(lastName)"
                 annotation.subtitle = media
 
-                annotationss.append(annotation)
-
-                mapView.addAnnotations(annotationss)
+                annotations.append(annotation)
             }
         } else {
             Alert.basicAlert(title: "Download Failed", message: "It's not possible to download students. Please connect to a better internet", vc: self)
         }
     }
 
+    private func addAllPins() {
+        mapView.addAnnotations(annotations)
+    }
+
     private func removeAllPins() {
-        mapView.removeAnnotations(mapView.annotations)
+        mapView.removeAnnotations(annotations)
     }
 }
 
