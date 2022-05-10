@@ -12,6 +12,7 @@ final class MapViewController: UIViewController {
 
         annotations.isEmpty ? configureMapView() : removeAllPins()
         addAllPins()
+        showLastStudentAdded()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -52,6 +53,7 @@ final class MapViewController: UIViewController {
         repository?.getStudents(completion: { _ in })
         annotations.isEmpty ? configureMapView() : removeAllPins()
         addAllPins()
+        showLastStudentAdded()
     }
 
     private func configureMapView() {
@@ -65,15 +67,10 @@ final class MapViewController: UIViewController {
 
                 let firstName = student.firstName
                 let lastName = student.lastName
+                let title = "\(firstName) \(lastName)"
                 let media = student.mediaURL
 
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = coordinate
-                annotation.title = "\(firstName) \(lastName)"
-                annotation.subtitle = media
-
-                annotations.append(annotation)
-
+                annotations.append(createAnnotation(coordinate: coordinate, title: title, subtitle: media))
             }
         } else {
             Alert.basicAlert(title: "Download Failed", message: "It's not possible to download students. Please connect to a better internet", vc: self)
@@ -87,6 +84,28 @@ final class MapViewController: UIViewController {
 
     private func removeAllPins() {
         mapView.removeAnnotations(annotations)
+    }
+
+    private func showLastStudentAdded() {
+        if let repository = repository {
+            let student = repository.students[0]
+            let coordinate = CLLocationCoordinate2D(latitude: student.latitude,
+                                                    longitude: student.longitude)
+            let title = "\(student.firstName) \(student.lastName)"
+            mapView.addAnnotation(createAnnotation(coordinate: coordinate,
+                                                   title: title,
+                                                   subtitle: student.mediaURL))
+            mapView.setCenter(coordinate, animated: true)
+        }
+    }
+
+    private func createAnnotation(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) -> MKPointAnnotation {
+
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = title
+        annotation.subtitle = subtitle
+        return annotation
     }
 }
 

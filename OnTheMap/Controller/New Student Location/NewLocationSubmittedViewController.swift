@@ -82,9 +82,7 @@ class NewLocationSubmittedViewController: UIViewController {
 
                 let pin = MKPointAnnotation()
                 pin.coordinate = coordinate
-
                 mapView.addAnnotation(pin)
-
 
             } else {
                 Alert.basicAlert(title: "Location Not Found", message: "Please enter correct location", vc: self)
