@@ -228,7 +228,7 @@ today?</string>
                                 <navigationItem title="List" id="3kb-7z-cPT">
                                     <barButtonItem key="leftBarButtonItem" title="Logout" id="gSW-Bo-fjZ">
                                         <connections>
-                                            <action selector="logoutButtonTapped:" destination="JIi-hi-0VT" id="p1e-gc-coL"/>
+                                            <action selector="logoutButtonTapped:" destination="Sax-m2-XCP" id="RtD-sQ-qxo"/>
                                         </connections>
                                     </barButtonItem>
                                     <rightBarButtonItems>
