@@ -58,10 +58,6 @@ final class MapViewController: UIViewController {
         mapView.delegate = self
         if let repository = repository {
 
-            let lastStudent = repository.students[0]
-            let coordinate = CLLocationCoordinate2D(latitude: lastStudent.latitude, longitude: lastStudent.longitude)
-            mapView.setCenter(coordinate, animated: true)
-
             for student in repository.students {
                 let latitude = CLLocationDegrees(student.latitude)
                 let longitude = CLLocationDegrees(student.longitude)
@@ -77,11 +73,13 @@ final class MapViewController: UIViewController {
                 annotation.subtitle = media
 
                 annotations.append(annotation)
+
             }
         } else {
             Alert.basicAlert(title: "Download Failed", message: "It's not possible to download students. Please connect to a better internet", vc: self)
         }
     }
+    // MARK: - Helper methods
 
     private func addAllPins() {
         mapView.addAnnotations(annotations)

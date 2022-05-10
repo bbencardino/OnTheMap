@@ -77,7 +77,8 @@ class NewLocationSubmittedViewController: UIViewController {
             if let location = location {
                 let coordinate = location.coordinate
                 self.coordinate = coordinate
-                mapView.region.center = coordinate
+                let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+                mapView.setRegion(region, animated: true)
 
                 let pin = MKPointAnnotation()
                 pin.coordinate = coordinate
